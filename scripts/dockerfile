@@ -1,0 +1,25 @@
+#Base image is 18.04 matching OSD5
+FROM ubuntu:18.04
+# download dependencies
+RUN apt-get update -y && apt-get -y install \
+    git bash cmake g++ libcunit1 libcunit1-doc libcunit1-dev
+# switch to /src directory
+WORKDIR /src/
+# clone repo into /src/cyclonedds
+RUN git clone https://github.com/eclipse-cyclonedds/cyclonedds.git
+
+WORKDIR /src/cyclonedds/build
+# Enable examples / disable security
+RUN cmake -DCMAKE_INSTALL_PREFIX=/dds/ -DBUILD_EXAMPLES=ON -DENABLE_SECURITY=NO .. && \
+    cmake --build . && cmake --build . --target install
+# Set the cmake library path
+ENV CycloneDDS_DIR=/dds/lib/cmake/
+# Create folder to share with host
+WORKDIR /workspace
+# set path to the configuration file
+ENV CYCLONEDDS_URI=file:///workspace/cyclonedds.xml
+# Create folder for helloworld example 
+WORKDIR /src/cyclonedds/helloworld
+# build example helloworld
+RUN cmake /dds/share/CycloneDDS/examples/helloworld && \
+    cmake --build .

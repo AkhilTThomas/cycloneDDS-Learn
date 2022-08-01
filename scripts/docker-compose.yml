@@ -1,0 +1,28 @@
+version: '2'
+services:
+  subscriber:
+    image: cyclonedds
+    command: >
+      sh -c "./HelloworldSubscriber"
+    volumes:
+      - ./../config:/workspace
+    networks:
+      cyclonenet:
+        ipv4_address: 172.16.237.20
+  publisher:
+    image: cyclonedds
+    command: >
+      sh -c "./HelloworldPublisher"
+    volumes:
+      - ./../config:/workspace
+    networks:
+      cyclonenet:
+        ipv4_address: 172.16.237.21
+
+networks:
+  cyclonenet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.237.0/24

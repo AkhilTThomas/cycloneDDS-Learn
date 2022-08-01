@@ -1,0 +1,32 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Create cyclonedds image",
+            "type": "shell",
+            "command": "docker build -t cyclonedds -f ./scripts/dockerfile ."
+        },
+        {
+            "label": "Run Helloworld example",
+            "type": "shell",
+            "command": "docker-compose -f ./scripts/docker-compose.yml up"
+        },
+        {
+            "label": "Remove Helloworld example",
+            "type": "shell",
+            "command": "docker-compose -f ./scripts/docker-compose.yml down"
+        },
+        {
+            "label": "Start wireshark monitoring",
+            "type": "shell",
+            "command": "docker-compose -f ./scripts/docker-compose-wireshark.yml up" 
+        },
+        {
+            "label": "Stop wireshark monitoring",
+            "type": "shell",
+            "command": "docker-compose -f ./scripts/docker-compose-wireshark.yml down" 
+        }
+    ]
+}
