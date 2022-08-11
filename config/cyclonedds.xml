@@ -20,7 +20,7 @@
             </Internal>
             <Tracing>
                 <Verbosity>config</Verbosity>
-                <OutputFile>cdds.log.${CYCLONEDDS_PID}</OutputFile>
+                <OutputFile>/workspace/cdds.log.${CYCLONEDDS_PID}</OutputFile>
             </Tracing>
         </Domain>
     </CycloneDDS>

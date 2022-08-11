@@ -7,6 +7,8 @@ RUN apt-get update -y && apt-get -y install \
 WORKDIR /src/
 # clone repo into /src/cyclonedds
 RUN git clone https://github.com/eclipse-cyclonedds/cyclonedds.git
+WORKDIR /src/cyclonedds
+RUN git checkout releases/0.9.x
 
 WORKDIR /src/cyclonedds/build
 # Enable examples / disable security
